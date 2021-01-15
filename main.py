@@ -1,5 +1,5 @@
 import pygame
-from scr.level import Level
+from scripts.level import Level
 
 if __name__ == '__main__':
     X_SIZE = 400
