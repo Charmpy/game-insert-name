@@ -12,53 +12,53 @@ class Bullet(Character):
 
         if self.direct == 'ul':
             rez = self.board.get_cell_info(self.x - 1, self.y - 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x -= 1
                 self.y -= 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'ur':
             rez = self.board.get_cell_info(self.x + 1, self.y - 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x += 1
                 self.y -= 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'dr':
             rez = self.board.get_cell_info(self.x + 1, self.y + 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x += 1
                 self.y += 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'dl':
             rez = self.board.get_cell_info(self.x - 1, self.y + 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x -= 1
                 self.y += 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'l':
             rez = self.board.get_cell_info(self.x - 1, self.y)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x -= 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'u':
             rez = self.board.get_cell_info(self.x, self.y - 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.y -= 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'r':
             rez = self.board.get_cell_info(self.x + 1, self.y)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.x += 1
             elif rez == '#':
                 self.kill_info = True
         elif self.direct == 'd':
             rez = self.board.get_cell_info(self.x, self.y + 1)
-            if rez == '.':
+            if rez == '.' or str(rez) == 'E':
                 self.y += 1
             elif rez == '#':
                 self.kill_info = True

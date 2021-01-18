@@ -82,9 +82,10 @@ class Level:
     def move_object(self, start_pos, target):
         x1, y1 = start_pos
         x2, y2 = target
-        (self.board[y1][x1], self.board[y2][x2]) = (
-            self.board[y2][x2], self.board[y1][x1]
-        )
+        if self.board[y2][x2] != '#':
+            self.board[y2][x2] = self.board[y1][x1]
+            self.board[y1][x1] = '.'
+
 
     def clear_cell(self, pos):
         x, y = pos

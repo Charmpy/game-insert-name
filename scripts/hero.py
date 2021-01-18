@@ -10,6 +10,22 @@ class Hero(Character):
         return '@'
 
     def action(self, key):
+        if key[119] == 1 and key[97] == 1:
+            self.direct = 'ul'
+        elif key[119] == 1 and key[100] == 1:
+            self.direct = 'ur'
+        elif key[115] == 1 and key[100] == 1:
+            self.direct = 'dr'
+        elif key[115] == 1 and key[97] == 1:
+            self.direct = 'dl'
+        elif key[119] == 1:
+            self.direct = 'u'
+        elif key[97] == 1:
+            self.direct = 'l'
+        elif key[115] == 1:
+            self.direct = 'd'
+        elif key[100] == 1:
+            self.direct = 'r'
         if abs(self.counter.get_bpm() - self.counter.get_couter()) < 10:
             if key[119] == 1 and key[97] == 1:
                 self.direct = 'ul'

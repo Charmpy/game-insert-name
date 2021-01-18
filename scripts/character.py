@@ -14,6 +14,9 @@ class Character:
     def __repr__(self):
         return 'C'
 
+    def get_coords(self):
+        return self.x, self.y
+
     def move(self):
         x1, y1 = self.x, self.y
 

@@ -10,3 +10,5 @@ class Container:
         for i in range(len(self.container)):
             if self.container[i].__class__.__name__ == 'Bullet':
                 self.container[i].set_move()
+            if self.container[i].__class__.__name__ == 'Enemy':
+                self.container[i].move_logic()

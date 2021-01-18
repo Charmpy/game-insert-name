@@ -22,7 +22,7 @@ if __name__ == '__main__':
     board.set_view(20)
 
     hero = Hero(counter, (5, 5), board)
-    enemy = Enemy(counter, (8, 5), board)
+    enemy = Enemy(counter, (8, 5), board, hero)
     board.add_character(hero, (5, 5))
     board.add_character(enemy, (8, 5))
     beat = Beat(fps, counter)
