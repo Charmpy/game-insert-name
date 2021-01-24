@@ -24,7 +24,7 @@ if __name__ == '__main__':
     hero = Hero(counter, (5, 5), board)
     enemy = Enemy(counter, (8, 5), board, hero)
     board.add_character(hero, (5, 5))
-    board.add_character(enemy, (8, 5))
+    # board.add_character(enemy, (8, 5))
     beat = Beat(fps, counter)
     beat.set_geometry((300, 50), (50, 220))
     while running:

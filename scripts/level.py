@@ -1,5 +1,6 @@
 import pygame
 from scripts.container import Container
+from scripts.door import Door
 
 
 class Level:
@@ -12,6 +13,14 @@ class Level:
         self.cell_size = 30
         self.width = len(self.board[0])
         self.height = len(self.board)
+        self.create_doors()
+
+    def create_doors(self):
+        for i in range(self.width):
+            for j in range(self.height):
+                if self.board[j][i] == 'd':
+                    self.board[j][i] = Door((i, j), self)
+                    self.container.add_character(self.board[j][i])
 
     def set_view(self, cell_size):
         self.left = (400 - cell_size * self.width) // 2
@@ -57,6 +66,16 @@ class Level:
                          self.top + self.cell_size * j + 1,
                          self.cell_size - 2, self.cell_size - 2)
                     )
+                elif self.board[j][i].__class__.__name__ == 'Door':
+                    if self.board[j][i].is_open():
+                        pass
+                    else:
+                        pygame.draw.rect(
+                            screen, pygame.Color('gray'),
+                            (self.left + self.cell_size * i + 1,
+                             self.top + self.cell_size * j + 1,
+                             self.cell_size - 2, self.cell_size - 2)
+                        )
 
     def get_cell_info(self, x, y):
         return self.board[y][x]
@@ -86,9 +105,11 @@ class Level:
             self.board[y2][x2] = self.board[y1][x1]
             self.board[y1][x1] = '.'
 
-
     def clear_cell(self, pos):
         x, y = pos
+        ide = id(self.board[y][x])
+        print(ide)
+        self.container.delete_id(ide)
         self.board[y][x] = '.'
 
     def _get_structure(self):
