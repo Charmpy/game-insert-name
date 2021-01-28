@@ -10,22 +10,6 @@ class Hero(Character):
         return '@'
 
     def action(self, key):
-        if key[119] == 1 and key[97] == 1:
-            self.direct = 'ul'
-        elif key[119] == 1 and key[100] == 1:
-            self.direct = 'ur'
-        elif key[115] == 1 and key[100] == 1:
-            self.direct = 'dr'
-        elif key[115] == 1 and key[97] == 1:
-            self.direct = 'dl'
-        elif key[119] == 1:
-            self.direct = 'u'
-        elif key[97] == 1:
-            self.direct = 'l'
-        elif key[115] == 1:
-            self.direct = 'd'
-        elif key[100] == 1:
-            self.direct = 'r'
         if abs(self.counter.get_bpm() - self.counter.get_couter()) < 10:
             if key[119] == 1 and key[97] == 1:
                 self.direct = 'ul'
@@ -53,6 +37,88 @@ class Hero(Character):
                 self.move()
             if key[32] == 1:
                 self.fire()
+        else:
+            if key[119] == 1 and key[97] == 1:
+                self.direct = 'ul'
+            elif key[119] == 1 and key[100] == 1:
+                self.direct = 'ur'
+            elif key[115] == 1 and key[100] == 1:
+                self.direct = 'dr'
+            elif key[115] == 1 and key[97] == 1:
+                self.direct = 'dl'
+            elif key[119] == 1:
+                self.direct = 'u'
+            elif key[97] == 1:
+                self.direct = 'l'
+            elif key[115] == 1:
+                self.direct = 'd'
+            elif key[100] == 1:
+                self.direct = 'r'
+
+    def move(self):
+        x1, y1 = self.x, self.y
+
+        if self.direct == 'ul':
+            rez = self.board.get_cell_info(self.x - 1, self.y - 1)
+            if rez == '.':
+                self.x -= 1
+                self.y -= 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'ur':
+            rez = self.board.get_cell_info(self.x + 1, self.y - 1)
+            if rez == '.':
+                self.x += 1
+                self.y -= 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'dr':
+            rez = self.board.get_cell_info(self.x + 1, self.y + 1)
+            if rez == '.':
+                self.x += 1
+                self.y += 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'dl':
+            rez = self.board.get_cell_info(self.x - 1, self.y + 1)
+            if rez == '.':
+                self.x -= 1
+                self.y += 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'l':
+            rez = self.board.get_cell_info(self.x - 1, self.y)
+            if rez == '.':
+                self.x -= 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'u':
+            rez = self.board.get_cell_info(self.x, self.y - 1)
+            if rez == '.':
+                self.y -= 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'r':
+            rez = self.board.get_cell_info(self.x + 1, self.y)
+            if rez == '.':
+                self.x += 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        elif self.direct == 'd':
+            rez = self.board.get_cell_info(self.x, self.y + 1)
+            if rez == '.':
+                self.y += 1
+            if str(rez) == 'D':
+                rez.teleport()
+
+        self.board.move_object((x1, y1), (self.x, self.y))
 
     def fire(self):
         x = self.can_fire()

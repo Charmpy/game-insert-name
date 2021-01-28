@@ -1,9 +1,9 @@
 import pygame
-from scripts.level import Level
-from scripts.hero import Hero
+from scripts.main_loop import MainLoop
 from scripts.beat import Beat
 from scripts.counter import Counter
 from scripts.enemy import Enemy
+
 
 if __name__ == '__main__':
     X_SIZE = 400
@@ -17,14 +17,7 @@ if __name__ == '__main__':
     fps = 60
     clock = pygame.time.Clock()
     counter = Counter(fps)
-
-    board = Level('data/levels/test_lvl')
-    board.set_view(20)
-
-    hero = Hero(counter, (5, 5), board)
-    enemy = Enemy(counter, (8, 5), board, hero)
-    board.add_character(hero, (5, 5))
-    # board.add_character(enemy, (8, 5))
+    main_loop = MainLoop(counter)
     beat = Beat(fps, counter)
     beat.set_geometry((300, 50), (50, 220))
     while running:
@@ -34,9 +27,9 @@ if __name__ == '__main__':
                 running = False
             if event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed()
-                hero.action(keys)
+                main_loop.action(keys)
         counter.counter()
-        board.render(screen)
+        main_loop.render(screen)
         beat.render(screen)
         pygame.display.flip()
         clock.tick(fps)

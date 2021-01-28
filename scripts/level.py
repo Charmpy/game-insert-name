@@ -2,6 +2,8 @@ import pygame
 from scripts.container import Container
 from scripts.door import Door
 
+LEVELS = ['lvl_1']
+
 
 class Level:
     def __init__(self, level):
@@ -114,4 +116,6 @@ class Level:
 
     def _get_structure(self):
         return self.board
+
+
 
