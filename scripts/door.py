@@ -14,5 +14,5 @@ class Door:
 
     def teleport(self):
         if self.is_open():
-            self.level.change_map()
+            self.level.change()
 

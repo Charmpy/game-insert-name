@@ -7,7 +7,7 @@ from scripts.enemy import Enemy
 
 if __name__ == '__main__':
     X_SIZE = 400
-    Y_SIZE = 300
+    Y_SIZE = 400
 
     pygame.init()
     size = width, height = X_SIZE, Y_SIZE
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     counter = Counter(fps)
     main_loop = MainLoop(counter)
     beat = Beat(fps, counter)
-    beat.set_geometry((300, 50), (50, 220))
+    beat.set_geometry((300, 50), (50, 320))
     while running:
         screen.fill((0, 0, 0))
         for event in pygame.event.get():

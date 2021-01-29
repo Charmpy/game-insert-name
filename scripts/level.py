@@ -6,7 +6,8 @@ LEVELS = ['lvl_1']
 
 
 class Level:
-    def __init__(self, level):
+    def __init__(self, level, loop):
+        self.loop = loop
         with open(level) as file:
             self.board = [list(i) for i in file.read().split('\n')]
         self.container = Container()
@@ -103,7 +104,7 @@ class Level:
     def move_object(self, start_pos, target):
         x1, y1 = start_pos
         x2, y2 = target
-        if self.board[y2][x2] != '#':
+        if self.board[y2][x2] == '.':
             self.board[y2][x2] = self.board[y1][x1]
             self.board[y1][x1] = '.'
 
@@ -116,6 +117,9 @@ class Level:
 
     def _get_structure(self):
         return self.board
+
+    def change(self):
+        self.loop.change()
 
 
 

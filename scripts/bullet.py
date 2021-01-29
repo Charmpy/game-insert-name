@@ -22,7 +22,7 @@ class Bullet(Character):
                 self.x -= 1
                 self.y -= 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'ur':
             rez = self.board.get_cell_info(self.x + 1, self.y - 1)
@@ -33,7 +33,7 @@ class Bullet(Character):
                 self.x += 1
                 self.y -= 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'dr':
             rez = self.board.get_cell_info(self.x + 1, self.y + 1)
@@ -44,7 +44,7 @@ class Bullet(Character):
                 self.x += 1
                 self.y += 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'dl':
             rez = self.board.get_cell_info(self.x - 1, self.y + 1)
@@ -55,7 +55,7 @@ class Bullet(Character):
                 self.x -= 1
                 self.y += 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'l':
             rez = self.board.get_cell_info(self.x - 1, self.y)
@@ -64,7 +64,7 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.x -= 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'u':
             rez = self.board.get_cell_info(self.x, self.y - 1)
@@ -73,7 +73,7 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.y -= 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'r':
             rez = self.board.get_cell_info(self.x + 1, self.y)
@@ -84,7 +84,7 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.x += 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         elif self.direct == 'd':
             rez = self.board.get_cell_info(self.x, self.y + 1)
@@ -93,7 +93,7 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.y += 1
                 self.board.clear_cell((self.x, self.y))
-            elif rez == '#':
+            elif rez == '#' or str(rez) == 'D':
                 self.kill_info = True
         if not self.kill_info:
             self.board.move_object((x1, y1), (self.x, self.y))
