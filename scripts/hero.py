@@ -5,6 +5,7 @@ from scripts.bullet import Bullet
 class Hero(Character):
     def __init__(self, counter, pos, level, direction='r'):
         super().__init__(counter, pos, level, direction)
+        print(pos)
 
     def __repr__(self):
         return '@'

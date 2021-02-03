@@ -2,6 +2,13 @@ class Container:
     def __init__(self):
         self.container = []
         self.enemies = 0
+        self.spawns = []
+
+    def add_spawn(self, coords):
+        self.spawns.append(coords)
+
+    def get_spawn(self):
+        return self.spawns
 
     def add_character(self, character):
         self.container.append(character)

@@ -1,6 +1,7 @@
 import pygame
 from scripts.container import Container
 from scripts.door import Door
+from scripts.enemy import Enemy
 
 LEVELS = ['lvl_1']
 
@@ -16,14 +17,29 @@ class Level:
         self.cell_size = 30
         self.width = len(self.board[0])
         self.height = len(self.board)
-        self.create_doors()
+        self.create_fill()
 
-    def create_doors(self):
+    def create_fill(self):
         for i in range(self.width):
             for j in range(self.height):
                 if self.board[j][i] == 'd':
                     self.board[j][i] = Door((i, j), self)
                     self.container.add_character(self.board[j][i])
+                    if i == 0:
+                        self.container.add_spawn((1, j))
+                    elif i == self.width:
+                        self.container.add_spawn((self.width - 1, j))
+                    elif j == 0:
+                        self.container.add_spawn((i, 1))
+                    elif j == self.height:
+                        self.container.add_spawn((i, self.height - 1))
+                elif self.board[j][i] == 'E':
+                    target = self.loop.get_hero()
+                    self.board[j][i] = Enemy(self.loop.counter, (i, j), self, target)
+                    self.container.add_character(self.board[j][i])
+
+    def get_spawns(self):
+        return self.container.get_spawn()
 
     def set_view(self, cell_size):
         self.left = (400 - cell_size * self.width) // 2
@@ -111,7 +127,6 @@ class Level:
     def clear_cell(self, pos):
         x, y = pos
         ide = id(self.board[y][x])
-        print(ide)
         self.container.delete_id(ide)
         self.board[y][x] = '.'
 

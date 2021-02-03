@@ -2,7 +2,6 @@ import pygame
 from scripts.main_loop import MainLoop
 from scripts.beat import Beat
 from scripts.counter import Counter
-from scripts.enemy import Enemy
 
 
 if __name__ == '__main__':
