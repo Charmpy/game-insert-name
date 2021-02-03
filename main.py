@@ -2,6 +2,7 @@ import pygame
 from scripts.main_loop import MainLoop
 from scripts.beat import Beat
 from scripts.counter import Counter
+from scripts.music import Music
 
 
 if __name__ == '__main__':
@@ -19,6 +20,8 @@ if __name__ == '__main__':
     main_loop = MainLoop(counter)
     beat = Beat(fps, counter)
     beat.set_geometry((300, 50), (50, 320))
+    music = Music(Counter)
+    music.play()
     while running:
         screen.fill((0, 0, 0))
         for event in pygame.event.get():

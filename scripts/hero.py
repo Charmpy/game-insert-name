@@ -5,10 +5,15 @@ from scripts.bullet import Bullet
 class Hero(Character):
     def __init__(self, counter, pos, level, direction='r'):
         super().__init__(counter, pos, level, direction)
-        print(pos)
 
     def __repr__(self):
         return '@'
+
+    def respawn(self, pos):
+        self.x, self.y = pos
+
+    def change_level(self, level):
+        self.level = level
 
     def action(self, key):
         if abs(self.counter.get_bpm() - self.counter.get_couter()) < 10:
@@ -58,9 +63,8 @@ class Hero(Character):
 
     def move(self):
         x1, y1 = self.x, self.y
-
         if self.direct == 'ul':
-            rez = self.board.get_cell_info(self.x - 1, self.y - 1)
+            rez = self.level.get_cell_info(self.x - 1, self.y - 1)
             if rez == '.':
                 self.x -= 1
                 self.y -= 1
@@ -68,7 +72,7 @@ class Hero(Character):
                 rez.teleport()
 
         elif self.direct == 'ur':
-            rez = self.board.get_cell_info(self.x + 1, self.y - 1)
+            rez = self.level.get_cell_info(self.x + 1, self.y - 1)
             if rez == '.':
                 self.x += 1
                 self.y -= 1
@@ -76,7 +80,7 @@ class Hero(Character):
                 rez.teleport()
 
         elif self.direct == 'dr':
-            rez = self.board.get_cell_info(self.x + 1, self.y + 1)
+            rez = self.level.get_cell_info(self.x + 1, self.y + 1)
             if rez == '.':
                 self.x += 1
                 self.y += 1
@@ -84,7 +88,7 @@ class Hero(Character):
                 rez.teleport()
 
         elif self.direct == 'dl':
-            rez = self.board.get_cell_info(self.x - 1, self.y + 1)
+            rez = self.level.get_cell_info(self.x - 1, self.y + 1)
             if rez == '.':
                 self.x -= 1
                 self.y += 1
@@ -92,78 +96,78 @@ class Hero(Character):
                 rez.teleport()
 
         elif self.direct == 'l':
-            rez = self.board.get_cell_info(self.x - 1, self.y)
+            rez = self.level.get_cell_info(self.x - 1, self.y)
             if rez == '.':
                 self.x -= 1
             if str(rez) == 'D':
                 rez.teleport()
 
         elif self.direct == 'u':
-            rez = self.board.get_cell_info(self.x, self.y - 1)
+            rez = self.level.get_cell_info(self.x, self.y - 1)
             if rez == '.':
                 self.y -= 1
             if str(rez) == 'D':
                 rez.teleport()
 
         elif self.direct == 'r':
-            rez = self.board.get_cell_info(self.x + 1, self.y)
+            rez = self.level.get_cell_info(self.x + 1, self.y)
             if rez == '.':
                 self.x += 1
             if str(rez) == 'D':
                 rez.teleport()
 
         elif self.direct == 'd':
-            rez = self.board.get_cell_info(self.x, self.y + 1)
+            rez = self.level.get_cell_info(self.x, self.y + 1)
             if rez == '.':
                 self.y += 1
             if str(rez) == 'D':
                 rez.teleport()
 
-        self.board.move_object((x1, y1), (self.x, self.y))
+        self.level.move_object((x1, y1), (self.x, self.y))
 
     def fire(self):
         x = self.can_fire()
         if bool(x):
-            bullet = Bullet(self.counter, x, self.board, self.direct, 1)
-            self.board.add_character(bullet, x)
+            bullet = Bullet(self.counter, x, self.level, self.direct, 1)
+            self.level.add_character(bullet, x)
 
     def can_fire(self):
         x1, y1 = self.x, self.y
 
         if self.direct == 'ul':
-            rez = self.board.get_cell_info(self.x - 1, self.y - 1)
+            rez = self.level.get_cell_info(self.x - 1, self.y - 1)
             if rez == '.':
                 x1 -= 1
                 y1 -= 1
         elif self.direct == 'ur':
-            rez = self.board.get_cell_info(self.x + 1, self.y - 1)
+            rez = self.level.get_cell_info(self.x + 1, self.y - 1)
             if rez == '.':
                 x1 += 1
                 y1 -= 1
         elif self.direct == 'dr':
-            rez = self.board.get_cell_info(self.x + 1, self.y + 1)
+            rez = self.level.get_cell_info(self.x + 1, self.y + 1)
             if rez == '.':
                 x1 += 1
                 y1 += 1
         elif self.direct == 'dl':
-            rez = self.board.get_cell_info(self.x - 1, self.y + 1)
+            rez = self.level.get_cell_info(self.x - 1, self.y + 1)
             if rez == '.':
                 x1 -= 1
                 y1 += 1
         elif self.direct == 'l':
-            rez = self.board.get_cell_info(self.x - 1, self.y)
+            rez = self.level.get_cell_info(self.x - 1, self.y)
             if rez == '.':
                 x1 -= 1
         elif self.direct == 'u':
-            rez = self.board.get_cell_info(self.x, self.y - 1)
+            rez = self.level.get_cell_info(self.x, self.y - 1)
             if rez == '.':
                 y1 -= 1
         elif self.direct == 'r':
-            rez = self.board.get_cell_info(self.x + 1, self.y)
+            rez = self.level.get_cell_info(self.x + 1, self.y)
             if rez == '.':
                 x1 += 1
         elif self.direct == 'd':
-            rez = self.board.get_cell_info(self.x, self.y + 1)
+            rez = self.level.get_cell_info(self.x, self.y + 1)
             if rez == '.':
                 y1 += 1
 

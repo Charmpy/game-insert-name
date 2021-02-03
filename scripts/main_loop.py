@@ -24,9 +24,10 @@ class MainLoop:
         self.hero.action(keys)
 
     def change(self):
+        pos = choice(self.board.get_spawns())
         self.board = Level(f'data/levels/{choice(LEVELS)}', self)
+        self.hero.change_level(self.board)
+        self.hero.respawn(pos)
         self.board.set_view(self.cell_size)
-        x = choice(self.board.get_spawns())
-        self.hero = Hero(self.counter, x, self.board)
-        self.board.add_character(self.hero, x)
-
+        self.board.add_character(self.hero, pos)
+        self.hero.change_level(self.board)

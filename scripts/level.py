@@ -27,12 +27,12 @@ class Level:
                     self.container.add_character(self.board[j][i])
                     if i == 0:
                         self.container.add_spawn((1, j))
-                    elif i == self.width:
-                        self.container.add_spawn((self.width - 1, j))
+                    elif i == self.width - 1:
+                        self.container.add_spawn((self.width - 2, j))
                     elif j == 0:
                         self.container.add_spawn((i, 1))
-                    elif j == self.height:
-                        self.container.add_spawn((i, self.height - 1))
+                    elif j == self.height - 1:
+                        self.container.add_spawn((i, self.height - 2))
                 elif self.board[j][i] == 'E':
                     target = self.loop.get_hero()
                     self.board[j][i] = Enemy(self.loop.counter, (i, j), self, target)
