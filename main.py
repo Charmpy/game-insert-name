@@ -14,7 +14,7 @@ if __name__ == '__main__':
     screen = pygame.display.set_mode(size)
     screen.fill(pygame.Color('black'))
     running = True
-    fps = 60
+    fps = 50
     clock = pygame.time.Clock()
     counter = Counter(fps)
     main_loop = MainLoop(counter)

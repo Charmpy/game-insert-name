@@ -14,6 +14,7 @@ class Beat:
         self.left, self.top = pos
 
     def render(self, screen):
+        self.vel = self.x // 2 // self.bpm
         pygame.draw.rect(
             screen, pygame.Color('pink'),
             (
@@ -29,13 +30,13 @@ class Beat:
         counter = self.counter.get_couter()
         pygame.draw.line(
             screen, pygame.Color('blue'),
-            (self.left + 25 + (self.x // 2 // self.bpm) * counter, self.top),
-            (self.left + 25 + (self.x // 2 // self.bpm) * counter, self.top + self.y), 3
+            (self.left + self.vel * counter, self.top),
+            (self.left + self.vel * counter, self.top + self.y), 3
         )
         pygame.draw.line(
             screen, pygame.Color('blue'),
-            (self.left + self.x - (self.x // 2 // self.bpm) * counter - 25, self.top),
-            (self.left + self.x - (self.x // 2 // self.bpm) * counter - 25,
+            (self.left + self.x - self.vel * counter, self.top),
+            (self.left + self.x - self.vel * counter,
              self.top + self.y), 3
         )
 
