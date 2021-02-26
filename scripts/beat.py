@@ -27,16 +27,16 @@ class Beat:
                 self.left + self.x // 2 - 10, self.top, 20, self.y
             ), 3
         )
-        counter = self.counter.get_couter()
+        counter = self.counter.get_counter()
         pygame.draw.line(
             screen, pygame.Color('blue'),
-            (self.left + self.vel * counter, self.top),
-            (self.left + self.vel * counter, self.top + self.y), 3
+            (self.left + self.vel * counter + 20, self.top),
+            (self.left + self.vel * counter + 20, self.top + self.y), 3
         )
         pygame.draw.line(
             screen, pygame.Color('blue'),
-            (self.left + self.x - self.vel * counter, self.top),
-            (self.left + self.x - self.vel * counter,
+            (self.left + self.x - self.vel * counter - 20, self.top),
+            (self.left + self.x - self.vel * counter - 20,
              self.top + self.y), 3
         )
 

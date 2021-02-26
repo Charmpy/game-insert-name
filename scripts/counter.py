@@ -6,7 +6,7 @@ class Counter:
     def counter(self):
         self.k = self.k + 1 if self.k < self.bpm else 0
 
-    def get_couter(self):
+    def get_counter(self):
         return self.k
 
     def get_bpm(self):

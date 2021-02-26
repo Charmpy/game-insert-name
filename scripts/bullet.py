@@ -1,4 +1,5 @@
 from scripts.character import Character
+from scripts.graphics import BulletSprt
 
 
 class Bullet(Character):
@@ -6,9 +7,13 @@ class Bullet(Character):
         super().__init__(counter, pos, level, direction)
         self.speed = speed
         self.kill_info = False
+        self.sprite = BulletSprt(pos[0], pos[1], level.all_sprites)
 
     def __repr__(self):
         return 'B'
+
+    def draw(self, x, y):
+        self.sprite.update(x, y)
 
     def move(self):
         x1, y1 = self.x, self.y
@@ -97,10 +102,12 @@ class Bullet(Character):
             self.level.move_object((x1, y1), (self.x, self.y))
         else:
             self.level.clear_cell((self.x, self.y))
+            # self.sprite.update(-30, -30)
+            self.level.all_sprites.remove(self.sprite)
 
     def set_move(self):
         if (
-            self.counter.get_bpm() // self.speed == self.counter.get_couter()
+            self.counter.get_bpm() // self.speed == self.counter.get_counter()
             and self.counter.get_bpm() % self.speed == 0
         ):
             self.move()

@@ -12,11 +12,12 @@ class Enemy(Character):
         return 'E'
 
     def move_logic(self):
-        if abs(self.counter.get_bpm() - self.counter.get_couter()) == 0:
+        if abs(self.counter.get_bpm() - self.counter.get_counter()) == 0:
             self.ticks += 1
             if self.ticks == self.delay:
                 self.ticks = 0
                 x, y = self.target.get_coords()
+
                 if self.x == x:
                     if self.y < y:
                         self.set_direction('d')
@@ -36,4 +37,8 @@ class Enemy(Character):
                         self.set_direction('ul')
                     elif self.x > x and self.y < y:
                         self.set_direction('dl')
+                if abs(self.x - x) <= 1 and abs(self.y - y) <= 1:
+                    self.level.clear_cell((x, y))
+                    self.level.all()
                 self.move()
+

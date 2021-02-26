@@ -2,6 +2,7 @@ import pygame
 from scripts.container import Container
 from scripts.door import Door
 from scripts.enemy import Enemy
+from scripts.graphics import Floor, Wall, Light
 
 LEVELS = ['lvl_1']
 
@@ -17,6 +18,7 @@ class Level:
         self.cell_size = 30
         self.width = len(self.board[0])
         self.height = len(self.board)
+        self.all_sprites = pygame.sprite.Group()
         self.create_fill()
 
     def create_fill(self):
@@ -35,49 +37,73 @@ class Level:
                         self.container.add_spawn((i, self.height - 2))
                 elif self.board[j][i] == 'E':
                     target = self.loop.get_hero()
-                    self.board[j][i] = Enemy(self.loop.counter, (i, j), self, target)
+                    self.board[j][i] = Enemy(self.loop.counter, (i, j), self,
+                                             target)
                     self.container.add_character(self.board[j][i])
+                    Floor(self.left + self.cell_size * i + 1,
+                          self.top + self.cell_size * j + 1, self.all_sprites)
+                elif self.board[j][i] == '.':
+                    Floor(self.left + self.cell_size * i + 1,
+                          self.top + self.cell_size * j + 1, self.all_sprites)
+                elif self.board[j][i] == '#':
+                    Wall(self.left + self.cell_size * i + 1,
+                          self.top + self.cell_size * j + 1, self.all_sprites)
+                elif self.board[j][i] == 'F':
+                    Light(self.left + self.cell_size * i + 1,
+                          self.top + self.cell_size * j + 1, self.all_sprites)
 
     def get_spawns(self):
         return self.container.get_spawn()
 
     def set_view(self, cell_size):
-        self.left = (400 - cell_size * self.width) // 2
+        self.left = 10
         self.top = 10
         self.cell_size = cell_size
 
     def render(self, screen):
         self.container.update()
+        self.all_sprites.draw(screen)
         for i in range(self.width):
             for j in range(self.height):
-                pygame.draw.rect(
-                    screen, pygame.Color('white'),
-                    (self.left + self.cell_size * i,
-                     self.top + self.cell_size * j,
-                     self.cell_size, self.cell_size), 1
-                )
-
-                if self.board[j][i] == '#':
-                    pygame.draw.rect(
-                        screen, pygame.Color('red'),
-                        (self.left + self.cell_size * i + 1,
-                         self.top + self.cell_size * j + 1,
-                         self.cell_size - 2, self.cell_size - 2)
-                    )
-                elif self.board[j][i].__class__.__name__ == 'Hero':
-                    pygame.draw.rect(
-                        screen, pygame.Color('blue'),
-                        (self.left + self.cell_size * i + 1,
-                         self.top + self.cell_size * j + 1,
-                         self.cell_size - 2, self.cell_size - 2)
-                    )
+                # pygame.draw.rect(
+                #     screen, pygame.Color('white'),
+                #     (self.left + self.cell_size * i,
+                #      self.top + self.cell_size * j,
+                #      self.cell_size, self.cell_size), 1
+                # )
+                # if self.board[j][i] == '#':
+                #     pygame.draw.rect(
+                #         screen, pygame.Color('red'),
+                #         (self.left + self.cell_size * i + 1,
+                #          self.top + self.cell_size * j + 1,
+                #          self.cell_size - 2, self.cell_size - 2)
+                #     )
+                # elif self.board[j][i] == '.':
+                #     pygame.draw.rect(
+                #         screen, pygame.Color('pink'),
+                #         (self.left + self.cell_size * i + 1,
+                #          self.top + self.cell_size * j + 1,
+                #          self.cell_size - 2, self.cell_size - 2)
+                #     )
+                if self.board[j][i].__class__.__name__ == 'Hero':
+                    self.board[j][i].draw(self.left + self.cell_size * i + 1,
+                                          self.top + self.cell_size * j + 1)
+                    # pygame.draw.rect(
+                    #     screen, pygame.Color('blue'),
+                    #     (self.left + self.cell_size * i + 1,
+                    #      self.top + self.cell_size * j + 1,
+                    #      self.cell_size - 2, self.cell_size - 2)
+                    # )
                 elif self.board[j][i].__class__.__name__ == 'Bullet':
-                    pygame.draw.rect(
-                        screen, pygame.Color('pink'),
-                        (self.left + self.cell_size * i + 1,
-                         self.top + self.cell_size * j + 1,
-                         self.cell_size - 2, self.cell_size - 2)
-                    )
+                    # pygame.draw.rect(
+                    #     screen, pygame.Color('pink'),
+                    #     (self.left + self.cell_size * i + 1,
+                    #      self.top + self.cell_size * j + 1,
+                    #      self.cell_size - 2, self.cell_size - 2)
+                    # )
+                    self.board[j][i].draw(self.left + self.cell_size * i + 1,
+                                          self.top + self.cell_size * j + 1)
+
                 elif self.board[j][i].__class__.__name__ == 'Enemy':
                     pygame.draw.rect(
                         screen, pygame.Color('yellow'),
@@ -135,6 +161,9 @@ class Level:
 
     def change(self):
         self.loop.change()
+
+    def all(self):
+        self.loop.all()
 
 
 
