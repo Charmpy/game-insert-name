@@ -8,7 +8,7 @@ import os
 
 
 def load_image(name, colorkey=None):
-    fullname = os.path.join('data/images', name)
+    fullname = os.path.join('data', 'images', name)
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
         print(f"Файл с изображением '{fullname}' не найден")
@@ -28,6 +28,7 @@ if __name__ == '__main__':
     running = True
     fps = 50
     clock = pygame.time.Clock()
+    record = 0
 
 
     def terminate():
@@ -36,18 +37,23 @@ if __name__ == '__main__':
 
 
     def start_screen():
-        intro_text = ["BEGIN"]
+        intro_text = [
+                      "Управление:", '  Ходить на WASD', '  Стрелять на пробел',
+                      'Удачи!', '', f'Лучшее за сегодня: {record}'
+                      ]
 
-        fon = pygame.transform.scale(load_image('fon.gif'), (width, height))
+        fon = pygame.transform.scale(
+            load_image('start_screen.png'), (width, height)
+        )
         screen.blit(fon, (0, 0))
         font = pygame.font.Font(None, 30)
-        text_coord = 50
+        text_coord = 380
         for line in intro_text:
             string_rendered = font.render(line, 1, pygame.Color('white'))
             intro_rect = string_rendered.get_rect()
             text_coord += 10
             intro_rect.top = text_coord
-            intro_rect.x = 10
+            intro_rect.x = 125
             text_coord += intro_rect.height
             screen.blit(string_rendered, intro_rect)
 
@@ -57,23 +63,26 @@ if __name__ == '__main__':
                     terminate()
                 elif event.type == pygame.KEYDOWN or \
                         event.type == pygame.MOUSEBUTTONDOWN:
-                    return  # начинаем игру
+                    return
             pygame.display.flip()
             clock.tick(fps)
 
     def end_screen():
-        intro_text = ["END"]
-
-        fon = pygame.transform.scale(load_image('fon.gif'), (width, height))
+        intro_text = [
+            "          WASTED", '',
+            f'Лучшее за сегодня: {record}'
+        ]
+        fon = pygame.transform.scale(load_image('start_screen.png'),
+                                     (width, height))
         screen.blit(fon, (0, 0))
         font = pygame.font.Font(None, 30)
-        text_coord = 50
+        text_coord = 400
         for line in intro_text:
             string_rendered = font.render(line, 1, pygame.Color('white'))
             intro_rect = string_rendered.get_rect()
             text_coord += 10
             intro_rect.top = text_coord
-            intro_rect.x = 10
+            intro_rect.x = 130
             text_coord += intro_rect.height
             screen.blit(string_rendered, intro_rect)
 
@@ -112,4 +121,7 @@ if __name__ == '__main__':
             beat.render(screen)
             pygame.display.flip()
             clock.tick(fps)
+
+        record = main_loop.get_record() if \
+            record < main_loop.get_record() else record
         end_screen()

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/game-insert-name.iml" filepath="$PROJECT_DIR$/.idea/game-insert-name.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../.idea/ЯНДЕКС.iml" filepath="$PROJECT_DIR$/../../.idea/ЯНДЕКС.iml" />
+    </modules>
+  </component>
+</project>

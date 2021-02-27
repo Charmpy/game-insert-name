@@ -19,7 +19,11 @@ class Level:
         self.width = len(self.board[0])
         self.height = len(self.board)
         self.all_sprites = pygame.sprite.Group()
+        self.move_sprites = pygame.sprite.Group()
         self.create_fill()
+
+    def remove_move_sprite(self, x, y):
+        self.move_sprites.remove(self.board[y][x])
 
     def create_fill(self):
         for i in range(self.width):
@@ -63,6 +67,7 @@ class Level:
     def render(self, screen):
         self.container.update()
         self.all_sprites.draw(screen)
+        self.move_sprites.draw(screen)
         for i in range(self.width):
             for j in range(self.height):
                 # pygame.draw.rect(
@@ -95,32 +100,37 @@ class Level:
                     #      self.cell_size - 2, self.cell_size - 2)
                     # )
                 elif self.board[j][i].__class__.__name__ == 'Bullet':
+                    self.board[j][i].draw(self.left + self.cell_size * i + 1,
+                                          self.top + self.cell_size * j + 1)
                     # pygame.draw.rect(
                     #     screen, pygame.Color('pink'),
                     #     (self.left + self.cell_size * i + 1,
                     #      self.top + self.cell_size * j + 1,
                     #      self.cell_size - 2, self.cell_size - 2)
                     # )
-                    self.board[j][i].draw(self.left + self.cell_size * i + 1,
-                                          self.top + self.cell_size * j + 1)
 
                 elif self.board[j][i].__class__.__name__ == 'Enemy':
-                    pygame.draw.rect(
-                        screen, pygame.Color('yellow'),
-                        (self.left + self.cell_size * i + 1,
-                         self.top + self.cell_size * j + 1,
-                         self.cell_size - 2, self.cell_size - 2)
-                    )
+                    self.board[j][i].draw(self.left + self.cell_size * i + 1,
+                                          self.top + self.cell_size * j + 1)
+                    # pygame.draw.rect(
+                    #     screen, pygame.Color('yellow'),
+                    #     (self.left + self.cell_size * i + 1,
+                    #      self.top + self.cell_size * j + 1,
+                    #      self.cell_size - 2, self.cell_size - 2)
+                    # )
                 elif self.board[j][i].__class__.__name__ == 'Door':
-                    if self.board[j][i].is_open():
-                        pass
-                    else:
-                        pygame.draw.rect(
-                            screen, pygame.Color('gray'),
-                            (self.left + self.cell_size * i + 1,
-                             self.top + self.cell_size * j + 1,
-                             self.cell_size - 2, self.cell_size - 2)
-                        )
+                    self.board[j][i].draw(
+                        self.left + self.cell_size * i + 1,
+                        self.top + self.cell_size * j + 1)
+                    # if self.board[j][i].is_open():
+                    #     pass
+                    # else:
+                    #     pygame.draw.rect(
+                    #         screen, pygame.Color('gray'),
+                    #         (self.left + self.cell_size * i + 1,
+                    #          self.top + self.cell_size * j + 1,
+                    #          self.cell_size - 2, self.cell_size - 2)
+                    #     )
 
     def get_cell_info(self, x, y):
         return self.board[y][x]
@@ -154,6 +164,7 @@ class Level:
         x, y = pos
         ide = id(self.board[y][x])
         self.container.delete_id(ide)
+        self.move_sprites.remove(self.board[y][x].sprite)
         self.board[y][x] = '.'
 
     def _get_structure(self):

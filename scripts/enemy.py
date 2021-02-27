@@ -1,4 +1,9 @@
 from scripts.character import Character
+from scripts.graphics import CharacterSprt
+from random import choice
+
+ENEMIES = [['enemy90_1.png', 'enemy45_1.png'],
+           ['enemy90_2.png', 'enemy45_2.png']]
 
 
 class Enemy(Character):
@@ -7,9 +12,19 @@ class Enemy(Character):
         self.target = target
         self.delay = 2
         self.ticks = 0
+        rez = choice(ENEMIES)
+        self.sprite = CharacterSprt(
+            level.move_sprites, rez[0], rez[1]
+        )
 
     def __repr__(self):
         return 'E'
+
+    def get_sprite(self):
+        return self.sprite
+
+    def draw(self, x, y):
+        self.sprite.update(x, y)
 
     def move_logic(self):
         if abs(self.counter.get_bpm() - self.counter.get_counter()) == 0:
@@ -41,4 +56,7 @@ class Enemy(Character):
                     self.level.clear_cell((x, y))
                     self.level.all()
                 self.move()
+            self.sprite.rotate(self.direct)
+
+
 

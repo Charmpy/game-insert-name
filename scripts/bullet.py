@@ -26,8 +26,11 @@ class Bullet(Character):
             if str(rez) == 'E':
                 self.x -= 1
                 self.y -= 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'ur':
             rez = self.level.get_cell_info(self.x + 1, self.y - 1)
@@ -37,8 +40,11 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.x += 1
                 self.y -= 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'dr':
             rez = self.level.get_cell_info(self.x + 1, self.y + 1)
@@ -48,8 +54,11 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.x += 1
                 self.y += 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'dl':
             rez = self.level.get_cell_info(self.x - 1, self.y + 1)
@@ -59,8 +68,11 @@ class Bullet(Character):
             elif str(rez) == 'E':
                 self.x -= 1
                 self.y += 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'l':
             rez = self.level.get_cell_info(self.x - 1, self.y)
@@ -68,8 +80,11 @@ class Bullet(Character):
                 self.x -= 1
             elif str(rez) == 'E':
                 self.x -= 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'u':
             rez = self.level.get_cell_info(self.x, self.y - 1)
@@ -77,8 +92,11 @@ class Bullet(Character):
                 self.y -= 1
             elif str(rez) == 'E':
                 self.y -= 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'r':
             rez = self.level.get_cell_info(self.x + 1, self.y)
@@ -86,8 +104,11 @@ class Bullet(Character):
                 self.x += 1
             elif str(rez) == 'E':
                 self.x += 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         elif self.direct == 'd':
             rez = self.level.get_cell_info(self.x, self.y + 1)
@@ -95,13 +116,17 @@ class Bullet(Character):
                 self.y += 1
             elif str(rez) == 'E':
                 self.y += 1
+                self.level.move_sprites.remove(rez.get_sprite())
                 self.level.clear_cell((self.x, self.y))
-            elif rez == '#' or str(rez) == 'D':
+                self.level.move_object((x1, y1), (self.x, self.y))
+                self.kill_info = True
+            elif rez == '#' or str(rez) == 'D' or rez == 'F':
                 self.kill_info = True
         if not self.kill_info:
             self.level.move_object((x1, y1), (self.x, self.y))
         else:
             self.level.clear_cell((self.x, self.y))
+
             # self.sprite.update(-30, -30)
             self.level.all_sprites.remove(self.sprite)
 

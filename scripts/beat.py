@@ -39,6 +39,3 @@ class Beat:
             (self.left + self.x - self.vel * counter - 20,
              self.top + self.y), 3
         )
-
-
-

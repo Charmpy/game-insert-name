@@ -1,24 +1,25 @@
 from scripts.character import Character
 from scripts.bullet import Bullet
-from scripts.graphics import HeroSprt
+from scripts.graphics import CharacterSprt
 
 
 class Hero(Character):
     def __init__(self, counter, pos, level, direction='r'):
         super().__init__(counter, pos, level, direction)
-        self.sprite = HeroSprt(level.all_sprites)
+        self.sprite = CharacterSprt(level.all_sprites, 'gg90.png', 'gg45.png')
 
     def __repr__(self):
         return '@'
 
     def draw(self, x, y):
-        self.sprite.update(x, y, self.direct)
+        self.sprite.update(x, y)
 
     def respawn(self, pos):
         self.x, self.y = pos
 
     def change_level(self, level):
         self.level = level
+        self.level.all_sprites.add(self.sprite)
 
     def action(self, key):
         if abs(self.counter.get_bpm() - self.counter.get_counter()) < 10:
@@ -73,6 +74,7 @@ class Hero(Character):
                 self.direct = 'd'
             elif key[100] == 1:
                 self.direct = 'r'
+        self.sprite.rotate(self.direct)
 
     def move(self):
         x1, y1 = self.x, self.y
