@@ -38,9 +38,9 @@ if __name__ == '__main__':
 
     def start_screen():
         intro_text = [
-                      "Управление:", '  Ходить на WASD', '  Стрелять на пробел',
-                      'Удачи!', '', f'Лучшее за сегодня: {record}'
-                      ]
+            "Управление:", '  Ходить на WASD', '  Стрелять на пробел',
+            'Удачи!', '', f'Лучшее за сегодня: {record}'
+        ]
 
         fon = pygame.transform.scale(
             load_image('start_screen.png'), (width, height)
