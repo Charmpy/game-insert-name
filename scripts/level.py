@@ -175,6 +175,3 @@ class Level:
 
     def all(self):
         self.loop.all()
-
-
-

@@ -57,6 +57,3 @@ class Enemy(Character):
                     self.level.all()
                 self.move()
             self.sprite.rotate(self.direct)
-
-
-

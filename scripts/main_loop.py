@@ -52,5 +52,3 @@ class MainLoop:
 
     def check(self):
         return self.flag
-
-
