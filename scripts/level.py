@@ -4,7 +4,7 @@ from scripts.door import Door
 from scripts.enemy import Enemy
 from scripts.graphics import Floor, Wall, Light
 
-LEVELS = ['lvl_1']
+LEVELS = ['lvl_1.txt']
 
 
 class Level:

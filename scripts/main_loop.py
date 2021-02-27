@@ -2,17 +2,17 @@ from scripts.level import Level
 from scripts.hero import Hero
 from random import choice
 
-LEVELS = ['lvl_1', 'lvl_2', 'lvl_3', 'lvl_4', 'lvl_5']
+LEVELS = ['lvl_1.txt', 'lvl_2.txt', 'lvl_3.txt', 'lvl_4.txt', 'lvl_5.txt']
 
 
 class MainLoop:
     def __init__(self, counter, music):
         self.counter = counter
         self.cell_size = 30
-        self.board = Level('data/levels/test_lvl', self)
+        self.board = Level('data/levels/test_lvl.txt', self)
         self.board.set_view(self.cell_size)
-        self.hero = Hero(self.counter, (1, 7), self.board)
-        self.board.add_character(self.hero, (1, 7))
+        self.hero = Hero(self.counter, (7, 7), self.board)
+        self.board.add_character(self.hero, (7, 7))
         self.flag = False
         self.music = music
         self.level_count = 0
